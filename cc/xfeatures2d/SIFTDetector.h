@@ -6,7 +6,7 @@
 #ifndef __FF_SIFTDETECTOR_H__
 #define __FF_SIFTDETECTOR_H__
 
-class SIFTDetector : public FeatureDetector, public FF::ObjectWrapTemplate<SIFTDetector, cv::Ptr<cv::xfeatures2d::SIFT>> {
+class SIFTDetector : public FeatureDetector, public FF::ObjectWrapTemplate<SIFTDetector, cv::Ptr<cv::SIFT>> {
 public:
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
@@ -47,7 +47,7 @@ public:
 			auto sigma = opt<FF::DoubleConverter>("sigma", 1.6);
 
 			executeBinding = [=]() {
-				return cv::xfeatures2d::SIFT::create(
+				return cv::SIFT::create(
 					nFeatures->ref(),
 					nOctaveLayers->ref(),
 					contrastThreshold->ref(),
