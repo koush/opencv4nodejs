@@ -30,18 +30,17 @@
   "typings": "./lib/index.d.ts",
   "scripts": {
     "install": "node ./install/install.js",
-    "configure": "node-gyp configure",
-    "build": "node-gyp configure build --jobs max",
-    "rebuild": "node-gyp rebuild --jobs max",
-    "clean": "node-gyp clean",
+    "configure": "node ./install/node-gyp.js -- configure",
+    "build": "node ./install/node-gyp.js -- configure build --jobs max",
+    "rebuild": "node ./install/node-gyp.js -- rebuild --jobs max",
+    "clean": "node ./install/node-gyp.js --  clean",
     "build-debug": "BINDINGS_DEBUG=true node ./install/install.js"
   },
   "gypfile": true,
   "dependencies": {
     "nan": "^2.14.0",
     "native-node-utils": "^0.2.7",
-    "npmlog": "^4.1.2",
-    "opencv-build": "^0.1.9"
+    "npmlog": "^4.1.2"
   },
   "opencv4nodejs": {
     "disableAutoBuild": 1

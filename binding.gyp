@@ -117,7 +117,7 @@
 		],
 
 		"cflags" : [
-			"-std=c++11"
+			"-std=c++17"
 		],
 		"cflags!" : [
 			"-fno-exceptions"
@@ -131,11 +131,11 @@
 		],
 		"xcode_settings": {
 			"OTHER_CFLAGS": [
-				"-std=c++11",
+				"-std=c++17",
 				"-stdlib=libc++"
 			],
 			"GCC_ENABLE_CPP_EXCEPTIONS": "YES",
-			"MACOSX_DEPLOYMENT_TARGET": "10.9"
+			"MACOSX_DEPLOYMENT_TARGET": "11.0"
 		},
 
 		"conditions": [
@@ -153,16 +153,7 @@
 						"RuntimeLibrary": "2"
 					},
 				}
-			}],
-	        ["OS==\"mac\"",
-	          {
-	            "link_settings": {
-	              "libraries": [
-					"-Wl,-rpath,@loader_path/../../../opencv-build/opencv/build/lib"
-	              ],
-	            }
-	          }
-	        ]
+			}]
 		],
 
 		"configurations": {
