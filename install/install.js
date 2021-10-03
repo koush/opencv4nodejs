@@ -11,7 +11,7 @@ function buildDisabled(dir) {
     }
 }
 
-if (buildDisabled('../../')) {
+if (process.env.OPENCV4NODEJS_DISABLE_AUTOBUILD || buildDisabled('../../')) {
     process.exit();
 }
 
