@@ -1,6 +1,6 @@
 {
   "name": "@koush/opencv4nodejs",
-  "version": "5.6.8",
+  "version": "5.6.9",
   "description": "Asynchronous OpenCV 3.x nodejs bindings with JavaScript and TypeScript API.",
   "keywords": [
     "opencv",
@@ -16,33 +16,48 @@
     "async",
     "typescript"
   ],
-  "author": "justadudewhohacks",
+  "author": "koush",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justadudewhohacks/opencv4nodejs"
+    "url": "git+https://github.com/koush/opencv4nodejs.git"
   },
   "bugs": {
-    "url": "https://github.com/justadudewhohacks/opencv4nodejs/issues"
+    "url": "https://github.com/koush/opencv4nodejs/issues"
   },
-  "homepage": "https://github.com/justadudewhohacks/opencv4nodejs#readme",
+  "homepage": "https://github.com/koush/opencv4nodejs#readme",
   "main": "./lib/opencv4nodejs.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "install": "node ./install/install.js",
-    "configure": "node ./install/node-gyp.js -- configure",
-    "build": "node ./install/node-gyp.js -- configure build --jobs max",
-    "rebuild": "node ./install/node-gyp.js -- rebuild --jobs max",
-    "clean": "node ./install/node-gyp.js --  clean",
-    "build-debug": "BINDINGS_DEBUG=true node ./install/install.js"
+    "install": "node-pre-gyp install --fallback-to-build",
+    "build": "node-gyp configure build --jobs max --verbose",
+    "node-pre-gyp-package": "rimraf build/Release/obj.target && rimraf build/Release/.deps && node-pre-gyp package",
+    "prenode-pre-gyp-publish": "npm run node-pre-gyp-package",
+    "node-pre-gyp-publish": "node ./install/publish publish"
+  },
+  "binary": {
+    "module_name": "opencv4nodejs",
+    "module_path": "./build/Release/",
+    "host": "https://github.com/koush/opencv4nodejs/releases/download/",
+    "remote_path": "{version}"
   },
   "gypfile": true,
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.6",
     "nan": "^2.14.0",
     "native-node-utils": "^0.2.7",
+    "node-gyp": "^8.4.0",
     "npmlog": "^4.1.2"
   },
   "optionalDependencies": {
     "@types/node": ">6"
+  },
+  "devDependencies": {
+    "@octokit/core": "^3.5.1",
+    "@octokit/rest": "^18.12.0",
+    "commander": "^8.3.0",
+    "mime-types": "^2.1.33",
+    "node-pre-gyp-github": "^1.4.3",
+    "rimraf": "^3.0.2"
   }
 }

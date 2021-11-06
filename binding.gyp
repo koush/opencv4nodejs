@@ -1,18 +1,15 @@
 {
-	"targets": [{
-		"target_name": "opencv4nodejs",
+    "targets": [{
+        "target_name": "opencv4nodejs",
 		"defines": [
-			"<!@(node ./install/parseEnv.js OPENCV4NODEJS_DEFINES)",
 		],
-		"include_dirs" : [
-			"<!@(node ./install/parseEnv.js OPENCV4NODEJS_INCLUDES)",
+		"include_dirs": [
 			"cc",
 			"cc/core",
 			"<!(node -e \"require('nan')\")",
 			"<!(node -e \"require('native-node-utils')\")"
 		],
 		"libraries": [
-			"<!@(node ./install/parseEnv.js OPENCV4NODEJS_LIBRARIES)",
 		],
 		"sources": [
 			"cc/opencv4nodejs.cc",
@@ -116,30 +113,49 @@
 			"cc/xfeatures2d/SURFDetector.cc"
 		],
 
-		"cflags" : [
+		"cflags": [
 			"-std=c++17"
 		],
-		"cflags!" : [
+		"cflags!": [
 			"-fno-exceptions"
 		],
 		"cflags_cc!": [
 			"-fno-rtti",
 			"-fno-exceptions"
 		],
-		"ldflags" : [
+		"ldflags": [
 			"-Wl,-rpath,'$$ORIGIN'"
 		],
-		"xcode_settings": {
-			"OTHER_CFLAGS": [
-				"-std=c++17",
-				"-stdlib=libc++"
-			],
-			"GCC_ENABLE_CPP_EXCEPTIONS": "YES",
-			"MACOSX_DEPLOYMENT_TARGET": "11.0"
-		},
+
 
 		"conditions": [
-			[ "OS==\"win\"", {
+			['OS=="linux"', {
+				'cflags': [
+					'<!@(pkg-config --cflags opencv4)',
+				],
+				'cflags_cc': [
+					'<!@(pkg-config --cflags opencv4)',
+				],
+				'ldflags': [
+					'<!@(pkg-config --libs opencv4)',
+				],
+			}],
+			['OS=="mac"', {
+				"xcode_settings": {
+					"OTHER_CFLAGS": [
+						"-std=c++17",
+						"-stdlib=libc++",
+						'<!@(node ./install/pkg-config <!(pkg-config --cflags opencv))',
+					],
+					"OTHER_LDFLAGS": [
+						'<!@(node ./install/pkg-config <!(pkg-config --libs opencv))',
+					],
+					"GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+					"MACOSX_DEPLOYMENT_TARGET": "11.0"
+				},
+			}],
+
+			["OS==\"win\"", {
 				"cflags": [
 					"-Wall"
 				],
@@ -161,7 +177,7 @@
 				"cflags": ["--coverage"],
 				"ldflags": ["--coverage"]
 			},
-    }
+		}
 
 	}]
 }
