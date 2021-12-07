@@ -29,7 +29,7 @@
   "main": "./lib/opencv4nodejs.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "install": "node-pre-gyp install --fallback-to-build",
+    "install": "node ./install/install.js",
     "build": "node-gyp configure build --jobs max --verbose",
     "node-pre-gyp-package": "rimraf build/Release/obj.target && rimraf build/Release/.deps && node-pre-gyp package",
     "prenode-pre-gyp-publish": "npm run node-pre-gyp-package",
